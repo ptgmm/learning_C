@@ -2,12 +2,13 @@
 
 int main()
 {
-    FILE *fp;
+    FILE *gradebook;
+    FILE *gradebookname;
     char grade;
     int menu;
     char bookname[100];
     int grademenu;
-
+    char subject[100];
 
     printf("Welocme in grade book\n");
     printf("Create new grade book (0): \n");
@@ -18,15 +19,17 @@ int main()
     if (menu == 0){
         printf("Enter name of your grade book: ");
         scanf("%s", bookname); 
-        fp = fopen (bookname, "w");
+        gradebook = fopen (bookname, "w");
+        gradebookname = fopen ("gradebookname", "w");
+        fprintf(gradebookname, "%s\n",  bookname);
 
-        if (fp == NULL) {
+        if (gradebook == NULL) {
             printf("Error creating grade book.\n");
             return 1;
         }
     }
     else if (menu == 1){
-        fp = fopen(bookname, "w");
+        gradebook = fopen(bookname, "w");
         printf("Add subject to gradebook (0) \n");
         printf("Add grade to gradebook (1) \n");
         printf("List your subjects (2) \n");
@@ -34,6 +37,33 @@ int main()
         printf("Type your choice: ");
         scanf("%d", &grademenu);
     }
+
+
+    switch(grademenu){
+        case 0:
+            printf("Enter the subject: ");
+            scanf("%s", subject);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     printf("Enter a grade: ");
     scanf("%c", &grade);
