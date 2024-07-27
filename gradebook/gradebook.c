@@ -9,6 +9,7 @@ int main()
     char bookname[100];
     int grademenu;
     char subject[100];
+    char reader[100];
 
     printf("Welocme in grade book\n");
     printf("Create new grade book (0): \n");
@@ -19,15 +20,20 @@ int main()
     if (menu == 0){
         printf("Enter name of your grade book: ");
         scanf("%s", bookname); 
-        gradebook = fopen (bookname, "w");
-        gradebookname = fopen ("gradebookname", "w");
+        gradebook = fopen(bookname, "w");
+        gradebookname = fopen("gradebookname.txt", "w");
         fprintf(gradebookname, "%s\n",  bookname);
+
+        fclose(gradebook);
+        fclose(gradebookname);
 
         if (gradebook == NULL) {
             printf("Error creating grade book.\n");
             return 1;
         }
     }
+
+
     else if (menu == 1){
         gradebook = fopen(bookname, "w");
         printf("Add subject to gradebook (0) \n");
@@ -41,8 +47,13 @@ int main()
 
     switch(grademenu){
         case 0:
+            printf("Enter the name of gradebook: ");
+            scanf("%s",  &reader);
+            gradebook = fopen(reader, "w");
             printf("Enter the subject: ");
             scanf("%s", subject);
+            fprintf(gradebook, "%s\n", subject);
+            
 
     }
 
