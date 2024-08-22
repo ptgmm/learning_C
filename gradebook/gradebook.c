@@ -1,105 +1,43 @@
-#include <stdio.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
 
 int main()
-{
-    FILE *gradebook;
-    FILE *gradebookname;
-    char grade;
-    int menu;
-    char bookname[100];
-    int grademenu;
-    char subject[100];
-    char reader[100];
+{  
+    FILE *createfile;
+    char filename[100];
+    char command[100];
+    int start;
+    char new[255];
 
-    printf("Welocme in grade book\n");
-    printf("Create new grade book (0): \n");
-    printf("Open grade book (1): \n");
-    printf("Type your choice: ");
-    scanf("%d", &menu);
     
-    if (menu == 0){
-        printf("Enter name of your grade book: ");
-        scanf("%s", bookname); 
-        gradebook = fopen(bookname, "w");
-        gradebookname = fopen("gradebookname.txt", "w");
-        fprintf(gradebookname, "%s\n",  bookname);
+    printf("Open gradebook (0)\n");
+    printf("Create new gradebook (1)\n");
+    printf("Enter your choice: ");
+    scanf("%d", &start);
 
-        fclose(gradebook);
-        fclose(gradebookname);
-
-        if (gradebook == NULL) {
-            printf("Error creating grade book.\n");
-            return 1;
-        }
-    }
-
-
-    else if (menu == 1){
-        gradebook = fopen(bookname, "w");
-        printf("Add subject to gradebook (0) \n");
-        printf("Add grade to gradebook (1) \n");
-        printf("List your subjects (2) \n");
-        printf("List your grades (3) \n");
-        printf("Type your choice: ");
-        scanf("%d", &grademenu);
-    }
-
-
-    switch(grademenu){
+    switch (start)
+    {
         case 0:
-            printf("Enter the name of gradebook: ");
-            scanf("%s",  &reader);
-            gradebook = fopen(reader, "w");
-            printf("Enter the subject: ");
-            scanf("%s", subject);
-            fprintf(gradebook, "%s\n", subject);
+            printf("Enter a name of your gradebok\n");
+            scanf("%99s", &filename);
+            if (access(filename, F_OK) == 0) {
+                snprintf(command, sizeof(command), "vim %s", filename);
+                int firstresult = system(command);
+            }
+            else {
+                printf("File does not exist.\n");
+            }
+            break;
+        case 1:
+            printf("Enter a name of your new gradebook\n");
+            scanf("%99s", &new);
+            createfile = fopen(new, "w");
+            snprintf(command, sizeof(command), " vim %s", new);
+            int secondresult = system(command);
+            break;
             
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    printf("Enter a grade: ");
-    scanf("%c", &grade);
-
-    switch(grade){
-        case 'A':
-            printf("Perfect");
-            break;
-        case 'B':
-            printf("Very good");
-            break;
-        case 'C':
-            printf("Okay");
-            break;
-        case 'D':
-            printf("At least it's not a F");
-            break;
-        case 'F':
-            printf("You failed");
-            break;
-        default:
-            printf("Please enter only grade");
-        }
-
 
     return 0;
-
 }
